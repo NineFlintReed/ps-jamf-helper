@@ -7,6 +7,8 @@ Basic utils to help with Jamf stuff.
 Relies on the environment vars JAMF_ROOT and JAMF_USER.
 - `JAMF_ROOT` is the base URI of the jamf instance.
 - `JAMF_USER` is the base64 encoded 'username:password' combination
+Will figure out the new Jamf API key feature at some point.
+
 ```Powershell
 # add to current session
 $env:JAMF_ROOT = 'https://myschool.com'
