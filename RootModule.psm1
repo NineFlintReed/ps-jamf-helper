@@ -5,18 +5,20 @@
 # convert to  : [convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($str))
 # $env:JAMF_USER = ''
 
-Set-StrictMode -Version 'Latest'
-$ErrorActionPreference = 'Stop' # Stop|Inquire|Continue|Suspend|SilentlyContinue
+$ErrorActionPreference = 'Stop'
+Set-StrictMode -Version '3.0'
 
-$script:JamfAuthExpiry = ''
-$script:JamfAuth = ''
+$script:JamfAuth = @{
+    Token = ''
+    Expiry = $null
+}
 
 . "$PSScriptRoot/Private/Helpers.ps1"
 
 
 (Get-ChildItem "$PSScriptRoot/Commands").ForEach({. "$_"})
 
-Set-Alias -Name jamf -Value Invoke-JamfRequest -Force
+
 
 
 

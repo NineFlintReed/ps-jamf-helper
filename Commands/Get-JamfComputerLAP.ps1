@@ -1,17 +1,13 @@
 function Get-JamfComputerLAP {
     Param(
         [ValidateNotNullOrEmpty()]
-        [Alias('id')]
-        [Parameter(Mandatory,ParameterSetName='Id',ValueFromPipelineByPropertyName)]
-        [String]$ComputerId,
-
-        [ValidateNotNullOrEmpty()]
-        [Parameter(Mandatory,ParameterSetName='Serial')]
-        [String]$SerialNumber,
+        [Alias('udid')]
+        [Parameter(Mandatory,ParameterSetName='Computer',ValueFromPipelineByPropertyName)]
+        [String]$Computer,
 
         [ValidateNotNullOrEmpty()]
         [Parameter(Mandatory,ParameterSetName='ManagementId')]
-        [String]$ManagementId,
+        [Guid]$ManagementId,
 
         [ValidateNotNullOrEmpty()]
         [String]$AccountName = 'administrator'
@@ -19,11 +15,9 @@ function Get-JamfComputerLAP {
 
     process {
         $management_id = switch($PSCmdlet.ParameterSetName) {
-            'Id'           { (Get-JamfComputer -Id $ComputerId).general.managementId }
-            'Serial'       { (Get-JamfComputer -SerialNumber $SerialNumber).general.managementId }
+            'Computer' { (Get-JamfComputer -Computer $Computer).general.managementId }
             'ManagementId' { $ManagementId }
         }
-
-        Invoke-JamfRequest -Method 'GET' -Endpoint "/api/v2/local-admin-password/${management_id}/account/${AccountName}/password"
+        jamf_get_single "/api/v2/local-admin-password/${management_id}/account/${AccountName}/password"
     }
 }

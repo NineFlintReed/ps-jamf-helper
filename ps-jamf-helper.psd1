@@ -1,6 +1,6 @@
 @{
     RootModule = 'RootModule.psm1'
-    ModuleVersion = '0.0.1'
+    ModuleVersion = '0.0.2'
     CompatiblePSEditions = @('Core')
     GUID = 'd87c02df-d19e-41e1-99b0-8ab1d767d770'
     Author = 'Tom Cousins'
@@ -14,17 +14,22 @@
     
     FunctionsToExport = @(
         'Get-JamfComputer'
-        'Get-JamfMobileDevice'
         'Get-JamfComputerLAP'
         'Get-JamfComputerLAPAccount'
-        'Invoke-JamfRequest'
+        'Get-JamfComputerPrestage'
+        'Get-JamfComputerPrestageScope'
+        'Get-JamfDeviceEnrollment'
+        'Get-JamfMobileDevice'
+        'Get-JamfMobileDevicePrestage'
+        'Get-JamfMobileDevicePrestageScope'
+        'Set-JamfComputerPrestageAssignment'
+        'Set-JamfMobileDevicePrestageAssignment'
+        'jamf_get_allpages'
+        'jamf_get_single'
     )
     CmdletsToExport = @()
     VariablesToExport = '*'
-    AliasesToExport = @(
-        'jamf'
-    )
-    
+    AliasesToExport = @()
     PrivateData = @{
         PSData = @{}
     }
