@@ -16,6 +16,10 @@ $get_jamf_mobile_device_all_includes = @(
     A PSCustomObject or OrderedDictionary that contains the fields specified in the 'Include' parameter. Other properties are present but null.
 
 .EXAMPLE
+    Get-JamfMobileDevice -Include *
+    Outputs all properties of all mobile device records currently in Jamf
+
+.EXAMPLE
     Get-JamfMobileDevice -User 'jsmith@orgname.edu.au'
     Outputs records of all mobile devices where 'jsmith@orgname.edu.au' is the user
 
