@@ -15,7 +15,11 @@ $get_jamf_computer_all_includes = @(
     A wrapper over the '/api/v1/computers-inventory' endpoint
 
 .OUTPUTS
-    A PSCustomObject that contains the fields specified in the 'Include' parameter. Other properties are present but null.
+    A PSCustomObject or OrderedDictionary that contains the fields specified in the 'Include' parameter. Other properties are present but null.
+
+.EXAMPLE
+    Get-JamfComputer -Include *
+    Outputs all properties of all computer records currently in Jamf
 
 .EXAMPLE
     Get-JamfComputer -User 'jsmith@orgname.edu.au'
