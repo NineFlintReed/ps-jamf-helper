@@ -13,6 +13,7 @@
     ScriptsToProcess = @()
     
     FunctionsToExport = @(
+        'Initialize-JamfCommandCompletion'
         'Get-JamfComputer'
         'Get-JamfComputerLAP'
         'Get-JamfComputerLAPAccount'
