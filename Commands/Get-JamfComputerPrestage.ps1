@@ -13,14 +13,42 @@ function Update-JamfComputerPrestageCache {
     }
 }
 
+<#
+.SYNOPSIS
+    Get a computer prestage object
 
+.DESCRIPTION
+    A wrapper over the computer prestages endpoints. Supports prestage lookup by name as well as id, with optional autocomplete for the prestage name.
+    Note that the prestages themselves are cached on first run of this command, and may be out of date if prestages are edited while this tool is used.
+
+.OUTPUTS
+    A list of prestage objects as PSCustomObject's
+
+.EXAMPLE
+    Get-JamfComputerPrestage
+    # Outputs list of all computer prestages
+
+.EXAMPLE
+    Get-JamfComputerPrestage -Prestage 'Laptop - CYOT Students'
+    # Outputs the prestage with displayName 'Laptop - CYOT Students'
+
+.EXAMPLE
+    Get-JamfComputerPrestage -Prestage 15
+    # Outputs the prestage with id 15
+
+.EXAMPLE
+    Get-JamfComputerPrestage -Computer 'C02JWM0MDNCR'
+    # Outputs the prestage object associated with computer 'C02JWM0MDNCR'
+#>
 function Get-JamfComputerPrestage {
     [CmdletBinding(DefaultParameterSetName='All')]
     Param(
+        # The computer prestage, specified as either a prestage id or displayName
         [ValidateNotNullOrEmpty()]
         [Parameter(ParameterSetName='Prestage')]
         [String]$Prestage,
 
+        # The computer, specified as either a serial number of udid. If specified, will return the prestage associated with this computer (if it has one).
         [ValidateNotNullOrEmpty()]
         [Alias('udid')]
         [Parameter(ParameterSetName='Computer',ValueFromPipelineByPropertyName)]
