@@ -52,7 +52,11 @@ function Get-JamfComputerPrestage {
         [ValidateNotNullOrEmpty()]
         [Alias('udid')]
         [Parameter(ParameterSetName='Computer',ValueFromPipelineByPropertyName)]
-        [String]$Computer
+        [String]$Computer,
+
+        # Internal, do not use
+        [Parameter(DontShow)]
+        [Switch]$_DontValidateSerial
     )
 
     process {
@@ -72,10 +76,17 @@ function Get-JamfComputerPrestage {
             }
             'Computer' {
                 $scopes = (jamf_get_single "/api/v2/computer-prestages/scope" -As Hashtable).serialsByPrestageId
-                $device = Get-JamfComputer -Computer $Computer -Include HARDWARE
-                if($device -and $scopes[$device.hardware.serialNumber]) {
-                    jamf_get_single "/api/v3/computer-prestages/$($scopes[$device.hardware.serialNumber])"
+                if($_DontValidateSerial) {
+                    if($scopes[$Computer]) {
+                        jamf_get_single "/api/v3/computer-prestages/$($scopes[$Computer])"
+                    }
+                } else {
+                    $device = Get-JamfComputer -Computer $Computer -Include HARDWARE
+                    if($device -and $scopes[$device.hardware.serialNumber]) {
+                        jamf_get_single "/api/v3/computer-prestages/$($scopes[$device.hardware.serialNumber])"
+                    }
                 }
+
             }
             'All' {
                 jamf_get_allpages "/api/v3/computer-prestages"

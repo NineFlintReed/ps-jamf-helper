@@ -1,3 +1,8 @@
+
+<#
+.SYNOPSIS
+    Retrieves the computers scoped to a prestage
+#>
 function Get-JamfComputerPrestageScope {
     [CmdletBinding(DefaultParameterSetName='All')]
     Param(
