@@ -27,6 +27,7 @@
         'Set-JamfMobileDevicePrestageAssignment'
         'jamf_get_allpages'
         'jamf_get_single'
+        'jamf_post_json'
     )
     CmdletsToExport = @()
     VariablesToExport = '*'

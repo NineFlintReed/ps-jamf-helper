@@ -2,14 +2,15 @@ function check_jamf_token {
     if([String]::IsNullOrEmpty($JamfAuth.Token) -or ([DateTime]::Now -gt $JamfAuth.Expiry)) {
         $params = @{
             Method = 'POST'
-            Uri = "${env:JAMF_ROOT}/api/auth/tokens"
+            Uri = "${env:JAMF_ROOT}/api/v1/auth/token"
             Headers = @{ Authorization = "Basic ${env:JAMF_USER}" }
         }
         
         $result = Invoke-RestMethod @params
         
         $script:JamfAuth.Token = $result.token
-        $script:JamfAuth.Expiry = ([DateTimeOffset]::FromUnixTimeMilliseconds($result.expires)).DateTime.ToLocalTime().AddMinutes(-5)    
+        $script:JamfAuth.Expiry = $result.expires.ToLocalTime().AddMinutes(-5)
+        #$script:JamfAuth.Expiry = ([DateTimeOffset]::FromUnixTimeMilliseconds($result.expires)).DateTime.ToLocalTime().AddMinutes(-5)    
     }
 }
 
